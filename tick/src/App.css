@@ -1,0 +1,248 @@
+#root {
+  margin: 0 auto;
+  text-align: center;
+  /* Fuente moderna y limpia, similar a la de iOS/TikTok */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #fff;
+}
+
+.auth-card {
+  background-color: #fff; /* Tarjeta en un gris oscuro */
+  padding: 40px 30px;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Espacio reducido para subir los inputs */
+}
+
+.tiktok-icon {
+  width: 40px;
+  height: auto;
+  margin-bottom: 15px;
+  align-self: center;
+}
+
+.auth-card h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 15px 0;
+  color: #161823; /* Texto oscuro para fondo blanco */
+}
+
+.social-login-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Alinea el contenido a la izquierda, como en TikTok */
+  gap: 10px;
+  padding: 12px;
+  border-radius: 0;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 15px; /* Un poco más grande */
+  text-align: left;
+  transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.social-btn:hover {
+  transform: scale(1.02); /* Efecto de crecimiento sutil */
+  border-color: #ccc; /* Borde ligeramente más oscuro al pasar el ratón */
+}
+
+/* Estilos específicos para los botones de redes sociales */
+.social-btn.phone-email {
+  background-color: #fff;
+  color: black;
+  border-color: rgb(201, 199, 199);
+}
+
+.social-btn.facebook {
+  color: #161823;
+  border-color: rgb(201, 199, 199);
+}
+.social-btn.facebook:hover {
+  border-color: #ccc;
+}
+
+.social-btn.google {
+  border-color: rgb(201, 199, 199);
+  color: #161823;
+}
+.social-btn.google:hover {
+  border-color: #ccc;
+}
+
+.social-btn.instagram {
+  /* Gradiente de Instagram */
+  border-color: rgba(201, 199, 199);
+  color: #161823;
+}
+.social-btn.instagram:hover {
+  border-color: #ccc;
+  opacity: 0.9; /* Ligera opacidad al pasar el ratón */
+}
+
+.social-icon {
+  width: 24px; /* Iconos ligeramente más grandes */
+  text-align: center;
+  flex-shrink: 0;
+  font-size: 16px; /* Ajustado para caber dentro del círculo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-icon.user { color:
+   black;
+   }
+.social-icon.facebook { 
+  color: #fff;
+  background-color: #1877F2; /* Azul Oficial Facebook */
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;;
+}
+
+.social-icon.google {
+  /* Colores oficiales de Google aplicados al texto (icono) */
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  font-size: 22px; /* Un poco más grande para resaltar */
+}
+
+.social-icon.instagram {
+  /* Fondo degradado oficial de Instagram con icono blanco */
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.divider {
+  color: #ccc; /* Divisor más claro para fondo blanco */
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espaciado entre los elementos del formulario */
+  margin-bottom: 10px; /* Espacio antes del mensaje/alternador */
+}
+input {
+  padding: 14px;
+  border-radius: 0;
+  border: 1px solid #ccc; /* Borde fino y claro */
+  background-color: #f9f9fa; /* Fondo gris muy sutil como en TikTok */
+  color: black;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, background-color 0.2s ease; /* Transición suave */
+}
+
+input::placeholder {
+  color: #ccc;
+}
+
+input:focus-visible {
+  outline: none;
+  background-color: #fff;
+}
+
+button {
+  cursor: pointer;
+  padding: 14px;
+  color: white;
+  border: none;
+  border-radius: 0;
+  background-color: red;
+  font-weight: bold;
+  transition: background-color 0.25s;
+  font-size: 1rem;
+}
+
+/* Botón principal de login/registro */
+button[type="submit"] {
+  background-color: #FE2C55; /* Rojo característico de TikTok */
+}
+
+button[type="submit"]:hover {
+  background-color: black;
+}
+
+/* Estilo para cuando el botón está deshabilitado */
+button[type="submit"]:disabled {
+  background-color: #FE2C55; /* Fondo gris claro */
+  color: #fff; /* Texto negro para que se lea bien */
+  cursor: not-allowed;
+}
+
+.forgot-password {
+  font-size: 14px;
+  font-weight: 600;
+  color: #8a8a8a; /* Texto gris para fondo blanco */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-top: -5px;
+  margin-bottom: 10px;
+  transition: color 0.2s ease;
+}
+
+.bottom-text {
+  color: #161823; /* Texto oscuro */
+  font-size: 14px;
+  padding: 20px;
+  border-top: 1px solid #efefef; /* Borde claro */
+  margin: 20px -30px -40px -30px; /* Se expande a los bordes */
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.toggle-link {
+  color: #FE2C55; /* Mismo rojo para consistencia */
+  font-weight: 600;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* --- Estilos para Responsividad --- */
+@media (max-width: 480px) {
+  .app-container {
+    background-color: #fff; /* El fondo de la tarjeta será el fondo de la app */
+  }
+
+  .auth-card {
+    box-shadow: none; /* Sin sombra en móvil */
+    border-radius: 0;
+    padding: 20px;
+    height: 100%;
+    justify-content: flex-start; /* Alinear contenido arriba */
+    padding-top: 40px; /* Menos padding superior en móvil */
+    gap: 15px; /* Espacio reducido para que todo quepa */
+  }
+
+  .tiktok-icon { width: 35px; margin-bottom: 5px; }
+  .auth-card h2 { font-size: 24px; }
+}
