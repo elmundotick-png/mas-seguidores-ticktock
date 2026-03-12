@@ -1,100 +1,75 @@
-const express = require("express")
-const cors = require("cors")
-const mongoose = require("mongoose")
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const path = require("path");
 
-const app = express()
+const app = express();
 
-app.use(cors()) 
-app.use(express.json())
+// Habilitar CORS y parseo de JSON
+app.use(cors());
+app.use(express.json());
 
-// --- Conexión a MongoDB ---
-// PON AQUÍ TU URI REAL DE MONGODB ATLAS
-const MONGO_URI = "mongodb+srv://admin:12345678910@cluster0.jh1fbmc.mongodb.net/loginDB?retryWrites=true&w=majority"
+// --- Conexión a MongoDB usando variable de entorno ---
+const MONGO_URI = process.env.MONGO_URI;
 
-mongoose.connect(MONGO_URI)
-.then(()=> console.log("Conectado a MongoDB Atlas 🍃"))
-.catch((err)=> console.log("Error al conectar MongoDB:", err))
+mongoose
+  .connect(MONGO_URI)
+  .then(() => console.log("Conectado a MongoDB Atlas 🍃"))
+  .catch((err) => console.log("Error al conectar MongoDB:", err));
 
 // --- Modelo de Usuario ---
 const UserSchema = new mongoose.Schema({
-email:{
-type:String,
-required:true,
-unique:true
-},
-password:{
-type:String,
-required:true
-}
-})
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+});
 
-const User = mongoose.model("User", UserSchema)
+const User = mongoose.model("User", UserSchema);
 
-// --- Ruta principal ---
-app.get("/",(req,res)=>{
-res.send("Servidor funcionando 🚀")
-})
+// --- Rutas API ---
+// Registrar usuario
+app.post("/api/register", async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
-// --- Registrar usuario ---
-app.post("/api/register", async (req,res)=>{
+    const newUser = new User({ email, password });
+    await newUser.save();
 
-try{
+    res.json({ message: "Usuario guardado en DB" });
+  } catch (error) {
+    if (error.code === 11000) {
+      return res.status(400).json({ message: "Ese correo ya existe" });
+    }
+    res.status(500).json({ message: "Error del servidor" });
+  }
+});
 
-const {email,password} = req.body
+// Login usuario
+app.post("/api/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
-const newUser = new User({
-email,
-password
-})
+    const user = await User.findOne({ email });
+    if (!user)
+      return res.status(400).json({ message: "Usuario no encontrado" });
 
-await newUser.save()
+    if (user.password !== password)
+      return res.status(400).json({ message: "Contraseña incorrecta" });
 
-res.json({
-message:"Usuario guardado en MongoDB"
-})
+    res.json({ message: "Login correcto" });
+  } catch (error) {
+    res.status(500).json({ message: "Error del servidor" });
+  }
+});
 
-}catch(error){
+// --- Servir React App ---
+app.use(express.static(path.join(__dirname, "tick", "dist")));
 
-if(error.code === 11000){
-return res.status(400).json({
-message:"Ese correo ya existe"
-})
-}
-
-res.status(500).json({
-message:"Error del servidor"
-})
-
-}
-
-})
-
-// --- Login usuario ---
-app.post("/api/login", async (req,res)=>{
-
-const {email,password} = req.body
-
-const user = await User.findOne({email})
-
-if(!user){
-return res.status(400).json({
-message:"Usuario no encontrado"
-})
-}
-
-if(user.password !== password){
-return res.status(400).json({
-message:"Contraseña incorrecta"
-})
-}
-
-res.json({
-message:"Login correcto"
-})
-
-})
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "tick", "dist", "index.html"));
+});
 
 // --- Iniciar servidor ---
-app.listen(3000,()=>{
-console.log("Servidor corriendo en http://localhost:3000")
-})
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});
