@@ -13,6 +13,13 @@ app.use(express.json());
 // --- Conexión a MongoDB usando variable de entorno ---
 const MONGO_URI = process.env.MONGO_URI;
 
+console.log("Intentando conectar con URI:", MONGO_URI ? "Encontrada (Oculta por seguridad)" : "❌ NO ENCONTRADA (Undefined)");
+
+if (!MONGO_URI) {
+  console.error("❌ ERROR CRÍTICO: No se leyó la variable MONGO_URI del archivo .env");
+  process.exit(1); // Detener el servidor si no hay base de datos
+}
+
 mongoose
   .connect(MONGO_URI)
   .then(() => console.log("Conectado a MongoDB Atlas 🍃"))
