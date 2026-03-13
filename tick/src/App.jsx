@@ -60,8 +60,11 @@ function App() {
     // Decidimos a qué ruta llamar dependiendo del modo
     const endpoint = isLogin ? '/api/login' : '/api/register'
     
+    // Detectamos si estamos en Producción (Render) o Desarrollo (Local)
+    const baseUrl = import.meta.env.PROD ? '' : 'http://localhost:3000'
+
     try {
-      const response = await axios.post(`http://localhost:3000${endpoint}`, {
+      const response = await axios.post(`${baseUrl}${endpoint}`, {
         email: email,
         password: password
       })
