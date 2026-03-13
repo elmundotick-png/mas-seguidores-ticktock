@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -36,6 +37,7 @@ app.post("/api/register", async (req, res) => {
 
     res.json({ message: "Usuario guardado en DB" });
   } catch (error) {
+    console.error("Error en registro:", error); // Ver el error real en consola
     if (error.code === 11000) {
       return res.status(400).json({ message: "Ese correo ya existe" });
     }
@@ -57,6 +59,7 @@ app.post("/api/login", async (req, res) => {
 
     res.json({ message: "Login correcto" });
   } catch (error) {
+    console.error("Error en login:", error); // Ver el error real en consola
     res.status(500).json({ message: "Error del servidor" });
   }
 });
